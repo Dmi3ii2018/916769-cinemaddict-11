@@ -29,6 +29,5 @@ export const createFilmCards = () => {
     };
     cards.push(filmData);
   }
-  console.log(cards);
   return cards;
 };
