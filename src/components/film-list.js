@@ -1,4 +1,5 @@
 import {createFilmCardTemplate} from './film-card';
+import {createFilmCards} from '../mock/mock';
 
 export const createFilmListTemplate = () => {
   return (
@@ -7,7 +8,7 @@ export const createFilmListTemplate = () => {
         <h2 class="films-list__title visually-hidden">All movies. Upcoming</h2>
 
         <div class="films-list__container">
-          ${createFilmCardTemplate(1)}
+          ${createFilmCards().map((film) => createFilmCardTemplate(film))}
         </div>
 
         <button class="films-list__show-more">Show more</button>
