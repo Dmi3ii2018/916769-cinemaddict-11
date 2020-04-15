@@ -10,25 +10,22 @@ const createFilmListTemplate = () => {
 
         </div>
 
-        <button class="films-list__show-more">Show more</button>
       </section>
     </section>`
   );
 };
 
 export default class FilmList {
-  constructor(filmList) {
-    this._filmList = filmList;
+  constructor() {
     this._element = null;
   }
 
-
   getTemplate() {
-    return createFilmListTemplate(this._filmList);
+    return createFilmListTemplate();
   }
 
   getElement() {
-    if (this._element) {
+    if (!this._element) {
       this._element = createElement(this.getTemplate());
     }
 
