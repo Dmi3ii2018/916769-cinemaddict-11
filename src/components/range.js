@@ -1,3 +1,5 @@
+import {createElement} from '../utils/utils.js';
+
 export const createUserRangeTemplate = () => {
   return (
     `<section class="header__profile profile">
@@ -6,3 +8,27 @@ export const createUserRangeTemplate = () => {
     </section>`
   );
 };
+
+export default class Range {
+  constructor(range) {
+    this._card = range;
+    this._element = null;
+  }
+
+
+  getTemplate() {
+    return createUserRangeTemplate(this._range);
+  }
+
+  getElement() {
+    if (this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

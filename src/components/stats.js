@@ -1,3 +1,5 @@
+import {createElement} from '../utils/utils.js';
+
 export const createStatTemplate = () => {
   return (
     `<ul class="sort">
@@ -7,3 +9,27 @@ export const createStatTemplate = () => {
     </ul>`
   );
 };
+
+export default class Stats {
+  constructor(stat) {
+    this._stat = stat;
+    this._element = null;
+  }
+
+
+  getTemplate() {
+    return createStatTemplate(this._stat);
+  }
+
+  getElement() {
+    if (this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

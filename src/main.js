@@ -1,11 +1,11 @@
-import {createUserRangeTemplate} from './components/range';
-import {createFilterTemplate} from './components/filter';
-import {createStatTemplate} from './components/stats';
+import {Range} from './components/range';
+import {Filter} from './components/filter';
+import {Stats} from './components/stats';
 import {createFilmListTemplate} from './components/film-list';
-import {createTopRatedTemplate} from './components/top-rated';
-import {createMostCommentedTemplate} from './components/most-commented';
+import {TopRated} from './components/top-rated';
+import {MostCommented} from './components/most-commented';
 import {createFilmCards} from './mock/mock';
-import {createFilmCardTemplate} from './components/film-card';
+import {FilmCard} from './components/film-card';
 
 let SHOWING_CARD_COUNT = 5;
 const SHOWING_FILM_CARDS_BY_BUTTON = 5;
