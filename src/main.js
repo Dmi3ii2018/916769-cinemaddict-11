@@ -7,7 +7,8 @@ import FilmList from './components/film-list';
 import ShowMoreButton from './components/show-more-button';
 import {createFilmCards} from './mock/mock';
 import FilmCard from './components/film-card';
-import FilmInfo from './components/popup-card';
+import FilmInfo from './components/film-info';
+import NoFilms from './components/no-films';
 import {render} from './utils/utils';
 import {ShowingFilmsNumber} from './constants/constants';
 
@@ -36,10 +37,17 @@ const renderFilmCard = (filmListElement, film) => {
   };
 
   const onOpenPopup = (evt) => {
+    event.stopPropagation();
+    const anotherOpenPopup = document.querySelector(`.film-details`);
+    if (anotherOpenPopup) {
+      filmListElement.removeChild(anotherOpenPopup);
+    }
     const isPopupElement = filmCardValues.some((it) => it === evt.target.className);
     if (isPopupElement) {
       filmListElement.appendChild(filmInfoComponent.getElement(), filmCardComponent.getElement());
       document.addEventListener(`keydown`, onEscKeyDown);
+      document.addEventListener(`click`, onOutBorderClick);
+      closeButton.addEventListener(`click`, onClosePopup);
     }
   };
 
@@ -47,6 +55,9 @@ const renderFilmCard = (filmListElement, film) => {
     evt.preventDefault();
     closePopup();
     document.removeEventListener(`keydown`, onEscKeyDown);
+    document.removeEventListener(`keydown`, onEscKeyDown);
+    closeButton.removeEventListener(`click`, onClosePopup);
+
   };
 
   const onEscKeyDown = (evt) => {
@@ -55,13 +66,27 @@ const renderFilmCard = (filmListElement, film) => {
     if (isEscKey) {
       closePopup();
       document.removeEventListener(`keydown`, onEscKeyDown);
+      document.removeEventListener(`click`, onOutBorderClick);
+      closeButton.removeEventListener(`click`, onClosePopup);
+    }
+  };
+
+  const onOutBorderClick = (evt) => {
+    const isOutClick = evt.path.some((element) => element.className === `film-details`);
+    if (!isOutClick) {
+      evt.preventDefault();
+      evt.stopPropagation();
+      closePopup();
+      document.removeEventListener(`click`, onOutBorderClick);
+      document.removeEventListener(`keydown`, onEscKeyDown);
+      closeButton.removeEventListener(`click`, onClosePopup);
+    } else {
+      return;
     }
   };
 
   const filmInfoComponent = new FilmInfo(film);
   const closeButton = filmInfoComponent.getElement().querySelector(`.film-details__close-btn`);
-  closeButton.addEventListener(`click`, onClosePopup);
-  document.addEventListener(`keydown`, onClosePopup);
 
   const filmCardComponent = new FilmCard(film);
   const openPopupElement = filmCardComponent.getElement();
@@ -77,6 +102,11 @@ const renderMain = (mainComponent, films) => {
 
   const filmListElement = mainComponent.querySelector(`.films-list__container`);
   const filmContainer = mainComponent.querySelector(`.films-list`);
+
+  if (!films.length) {
+    render(filmContainer, new NoFilms().getElement());
+    return;
+  }
 
   let showingFilmsCount = ShowingFilmsNumber.BY_START;
   films.slice(0, showingFilmsCount)
