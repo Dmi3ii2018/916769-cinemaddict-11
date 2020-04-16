@@ -1,3 +1,5 @@
+import {createElement} from '../utils/utils.js';
+
 export const createMostCommentedTemplate = () => {
   return (
     `<section class="films-list--extra">
@@ -43,3 +45,27 @@ export const createMostCommentedTemplate = () => {
     </section>`
   );
 };
+
+export default class MostCommented {
+  constructor(comment) {
+    this._comment = comment;
+    this._element = null;
+  }
+
+
+  getTemplate() {
+    return createMostCommentedTemplate(this._comment);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

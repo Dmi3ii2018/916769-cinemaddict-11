@@ -1,6 +1,7 @@
 import {Constants} from '../constants/constants';
+import {createElement} from '../utils/utils.js';
 
-export const createFilmCardTemplate = ({name, poster, description}) => {
+const createFilmCardTemplate = ({name, poster, description}) => {
   const newDescription = description.length < Constants.DESCRIPTION_LENGTH ? description : `${description.slice(0, 163)} ...`;
   return `<article class="film-card">
     <h3 class="film-card__title">${name}</h3>
@@ -20,3 +21,27 @@ export const createFilmCardTemplate = ({name, poster, description}) => {
     </form>
   </article>`;
 };
+
+export default class FilmCard {
+  constructor(card) {
+    this._card = card;
+    this._element = null;
+  }
+
+
+  getTemplate() {
+    return createFilmCardTemplate(this._card);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

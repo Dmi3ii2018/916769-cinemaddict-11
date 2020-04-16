@@ -18,15 +18,17 @@ const description = {
   }
 };
 
+const CreateCard = function () {
+  this.name = `Avatar`;
+  this.poster = `images/posters/${posterAdress[getRandomNumber(0, posterAdress.length - 1)]}`;
+  this.description = description.descriptionList;
+  this.comments = [];
+};
+
 export const createFilmCards = () => {
   const cards = [];
   for (let i = 0; i < FILM_CARDS_NUMBER; i++) {
-    const filmData = {
-      name: `Avatar`,
-      poster: `images/posters/${posterAdress[getRandomNumber(0, posterAdress.length - 1)]}`,
-      description: description.descriptionList,
-      comments: []
-    };
+    const filmData = new CreateCard();
     cards.push(filmData);
   }
   return cards;
