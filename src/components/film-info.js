@@ -1,6 +1,6 @@
 import {createElement} from '../utils/utils.js';
 
-const createFilmPopup = () => {
+const createFilmPopup = ({name, poster}) => {
   return (
     `<section class="film-details">
     <form class="film-details__inner" action="" method="get">
@@ -10,7 +10,7 @@ const createFilmPopup = () => {
         </div>
         <div class="film-details__info-wrap">
           <div class="film-details__poster">
-            <img class="film-details__poster-img" src="./images/posters/the-great-flamarion.jpg" alt="">
+            <img class="film-details__poster-img" src="${poster}" alt="">
 
             <p class="film-details__age">18+</p>
           </div>
@@ -18,7 +18,7 @@ const createFilmPopup = () => {
           <div class="film-details__info">
             <div class="film-details__info-head">
               <div class="film-details__title-wrap">
-                <h3 class="film-details__title">The Great Flamarion</h3>
+                <h3 class="film-details__title">${name}</h3>
                 <p class="film-details__title-original">Original: The Great Flamarion</p>
               </div>
 
@@ -182,7 +182,7 @@ export default class FilmInfo {
 
 
   getTemplate() {
-    return createFilmPopup();
+    return createFilmPopup(this._film);
   }
 
   getElement() {

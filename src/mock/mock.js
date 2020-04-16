@@ -1,4 +1,4 @@
-const FILM_CARDS_NUMBER = 15;
+const FILM_CARDS_NUMBER = 13;
 
 const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
