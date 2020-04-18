@@ -1,5 +1,5 @@
 import {Constants} from '../constants/constants';
-import {createElement} from '../utils/utils.js';
+import AbstractComponent from "./abstract-component.js";
 
 const createFilmCardTemplate = ({name, poster, description}) => {
   const newDescription = description.length < Constants.DESCRIPTION_LENGTH ? description : `${description.slice(0, 163)} ...`;
@@ -22,26 +22,17 @@ const createFilmCardTemplate = ({name, poster, description}) => {
   </article>`;
 };
 
-export default class FilmCard {
+export default class FilmCard extends AbstractComponent {
   constructor(card) {
+    super();
     this._card = card;
-    this._element = null;
   }
-
 
   getTemplate() {
     return createFilmCardTemplate(this._card);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+  setOpenPopupHandler(cb) {
+    this.getElement().addEventListener(`click`, cb);
   }
 }

@@ -10,22 +10,11 @@ import FilmCard from './components/film-card';
 import FilmInfo from './components/film-info';
 import NoFilms from './components/no-films';
 import {render} from './utils/utils';
-import {ShowingFilmsNumber} from './constants/constants';
-
-const FilmCardElementsShowPopup = {
-  poster: `film-card__poster`,
-  filmName: `film-card__title`,
-  comments: `film-card__comments`
-};
+import {FilmCardElementsShowPopup, ShowingFilmsNumber, DOM} from './constants/constants';
 
 const filmCardValues = Object.values(FilmCardElementsShowPopup);
 
 const filmList = createFilmCards();
-
-const DOM = {
-  userRange: document.querySelector(`.header`),
-  mainContainer: document.querySelector(`.main`)
-};
 
 const renderFilmCard = (filmListElement, film) => {
   const closePopup = () => {
@@ -47,7 +36,7 @@ const renderFilmCard = (filmListElement, film) => {
       filmListElement.appendChild(filmInfoComponent.getElement(), filmCardComponent.getElement());
       document.addEventListener(`keydown`, onEscKeyDown);
       document.addEventListener(`click`, onOutBorderClick);
-      closeButton.addEventListener(`click`, onClosePopup);
+      filmInfoComponent.setCloseButtonHandler(onClosePopup);
     }
   };
 
@@ -56,7 +45,7 @@ const renderFilmCard = (filmListElement, film) => {
     closePopup();
     document.removeEventListener(`keydown`, onEscKeyDown);
     document.removeEventListener(`keydown`, onEscKeyDown);
-    closeButton.removeEventListener(`click`, onClosePopup);
+    filmInfoComponent.removeCloseButtonListener(onClosePopup);
 
   };
 
@@ -67,7 +56,7 @@ const renderFilmCard = (filmListElement, film) => {
       closePopup();
       document.removeEventListener(`keydown`, onEscKeyDown);
       document.removeEventListener(`click`, onOutBorderClick);
-      closeButton.removeEventListener(`click`, onClosePopup);
+      filmInfoComponent.removeCloseButtonListener(onClosePopup);
     }
   };
 
@@ -79,18 +68,17 @@ const renderFilmCard = (filmListElement, film) => {
       closePopup();
       document.removeEventListener(`click`, onOutBorderClick);
       document.removeEventListener(`keydown`, onEscKeyDown);
-      closeButton.removeEventListener(`click`, onClosePopup);
+      filmInfoComponent.removeCloseButtonListener(onClosePopup);
     } else {
       return;
     }
   };
 
   const filmInfoComponent = new FilmInfo(film);
-  const closeButton = filmInfoComponent.getElement().querySelector(`.film-details__close-btn`);
+  filmInfoComponent.setCloseButtonHandler(onClosePopup);
 
   const filmCardComponent = new FilmCard(film);
-  const openPopupElement = filmCardComponent.getElement();
-  openPopupElement.addEventListener(`click`, onOpenPopup);
+  filmCardComponent.setOpenPopupHandler(onOpenPopup);
 
   render(filmListElement, filmCardComponent.getElement());
 };

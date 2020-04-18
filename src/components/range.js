@@ -1,4 +1,4 @@
-import {createElement} from '../utils/utils.js';
+import AbstractComponent from "./abstract-component.js";
 
 const createUserRangeTemplate = () => {
   return (
@@ -9,25 +9,8 @@ const createUserRangeTemplate = () => {
   );
 };
 
-export default class Range {
-  constructor() {
-    this._element = null;
-  }
-
-
+export default class Range extends AbstractComponent {
   getTemplate() {
     return createUserRangeTemplate();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
