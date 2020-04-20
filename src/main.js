@@ -11,6 +11,6 @@ const filmList = createFilmCards();
 
 render(headerContainer, new Range());
 
-const boardController = new BoardController(mainComponent);
+export const boardController = new BoardController(mainComponent);
 
 boardController.render(filmList);

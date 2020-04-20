@@ -1,13 +1,10 @@
+import {RenderPosition} from '../constants/constants';
+
 export const createElement = (template) => {
   const newElement = document.createElement(`div`);
   newElement.innerHTML = template;
 
   return newElement.firstChild;
-};
-
-export const RenderPosition = {
-  AFTERBEGIN: `afterbegin`,
-  BEFOREEND: `beforeend`
 };
 
 export const render = (container, component, place = RenderPosition.BEFOREEND) => {
@@ -17,6 +14,9 @@ export const render = (container, component, place = RenderPosition.BEFOREEND) =
       break;
     case RenderPosition.BEFOREEND:
       container.append(component.getElement());
+      break;
+    case RenderPosition.BEFORE:
+      container.before(component.getElement());
       break;
   }
 };

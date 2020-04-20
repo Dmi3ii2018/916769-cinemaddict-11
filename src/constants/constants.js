@@ -19,3 +19,15 @@ export const DOM = {
   userRange: document.querySelector(`.header`),
   mainContainer: document.querySelector(`.main`)
 };
+
+export const SortType = {
+  BY_DATE: `date`,
+  BY_RATING: `rating`,
+  DEFAULT: `default`,
+};
+
+export const RenderPosition = {
+  AFTERBEGIN: `afterbegin`,
+  BEFOREEND: `beforeend`,
+  BEFORE: `before`
+};
